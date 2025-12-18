@@ -1,4 +1,3 @@
-
 "use client"
 
 import { Footer } from "../components/footer"
@@ -414,8 +413,18 @@ export default function ContactPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { name: "Awais Rasool", role: "CEO & Founder" },
-              { name: "Haji Ahmad", role: "Co Founder" },
+              { 
+                name: "Awais Rasool", 
+                role: "CEO & Founder",
+                phone: "+92 322 4862371",
+                email: "awais.printers@yahoo.com"
+              },
+              { 
+                name: "Haji Ahmad", 
+                role: "Co Founder",
+                phone: "+92 300 0000000",
+                email: "haji.ahmad@example.com"
+              },
             ].map((member, index) => (
               <div key={index} className="bg-page-secondary rounded-2xl p-6 border border-light hover:border-accent transition-colors text-center">
                 <div className="w-20 h-20 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
