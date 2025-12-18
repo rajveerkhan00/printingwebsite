@@ -4,7 +4,8 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { 
   Phone, Menu, X, Sparkles, ChevronDown, 
-  MessageCircle, ShoppingCart, Search, Sun, Moon
+  MessageCircle, ShoppingCart, Search, Sun, Moon,
+  User
 } from "lucide-react"
 import { useTheme } from "@/app/theme-provider"
 
@@ -30,7 +31,7 @@ export function Header() {
 
   const navItems = [
     { label: "Home", href: "/" },
-    { label: "Services", href: "/services" }, // submenu removed
+    { label: "Services", href: "/services" },
     { label: "Gallery", href: "/gallery" },
     { label: "About Us", href: "/about" },
     { label: "Contact", href: "/contact" },
@@ -110,21 +111,68 @@ export function Header() {
                     className={`flex items-center gap-1 px-4 py-2 text-sm font-medium ${textSecondaryColor} hover:${textColor} transition-colors group`}
                   >
                     {item.label}
-                    {/* ChevronDown and submenu logic removed */}
                   </Link>
                   
                   {/* Hover Indicator */}
                   {hoveredNav === item.label && (
                     <div className="absolute -bottom-1 left-4 right-4 h-0.5 bg-gradient-to-r from-red-600 to-red-500 animate-expand-width" />
                   )}
-
-                  {/* Submenu removed entirely */}
                 </div>
               ))}
             </nav>
 
             {/* Right Side Actions */}
             <div className="flex items-center gap-4">
+              {/* Admin Login Icon */}
+              <Link
+                href="/admin"
+                className="group relative p-2 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                aria-label="Admin Login"
+                title="Admin Dashboard"
+              >
+                {/* Animated background gradient */}
+                <div className={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+                  theme === "dark" 
+                    ? "bg-gradient-to-r from-blue-500/20 to-indigo-500/20" 
+                    : "bg-gradient-to-r from-blue-400/20 to-indigo-400/20"
+                }`} />
+                
+                {/* Glow effect */}
+                <div className={`absolute inset-0 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
+                  theme === "dark" 
+                    ? "bg-gradient-to-r from-blue-600/30 to-indigo-600/30" 
+                    : "bg-gradient-to-r from-blue-500/30 to-indigo-500/30"
+                }`} />
+                
+                {/* Main button content */}
+                <div className={`relative flex items-center justify-center h-9 w-9 rounded-full border transition-all duration-300 ${
+                  theme === "dark" 
+                    ? "border-blue-500/30 bg-gradient-to-br from-gray-800 to-gray-900 text-blue-300 shadow-[0_0_15px_rgba(59,130,246,0.2)]" 
+                    : "border-blue-400/30 bg-gradient-to-br from-blue-50 to-white text-blue-600 shadow-[0_0_15px_rgba(59,130,246,0.2)]"
+                } group-hover:scale-110 group-active:scale-95`}>
+                  <User className="h-5 w-5 transition-transform duration-500 group-hover:rotate-12" />
+                  
+                  {/* Admin indicator dot */}
+                  <div className={`absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full ${
+                    theme === "dark" ? "bg-blue-400" : "bg-blue-500"
+                  } border-2 ${theme === "dark" ? "border-gray-900" : "border-white"}`} />
+                </div>
+                
+                {/* Tooltip */}
+                <div className={`absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none ${
+                  theme === "dark" 
+                    ? "bg-gray-800 text-blue-200 border border-blue-500/30" 
+                    : "bg-white text-gray-800 border border-gray-200 shadow-lg"
+                }`}>
+                  Admin Login
+                  <div className={`absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent ${
+                    theme === "dark" 
+                      ? "border-t-blue-500/30" 
+                      : "border-t-white"
+                  }`} />
+                </div>
+              </Link>
+
               {/* Enhanced Theme Toggle Button */}
               <button 
                 onClick={toggleTheme}
@@ -182,30 +230,9 @@ export function Header() {
                 </div>
               </button>
 
-              {/* Search - Uncomment if needed */}
-              {/* <button 
-                className={`p-2 rounded-lg ${hoverBg} transition-colors ${textSecondaryColor} hover:${textColor}`}
-                aria-label="Search"
-              >
-                <Search className="h-5 w-5" />
-              </button> */}
-
-              {/* Cart - Uncomment if needed */}
-              {/* <button 
-                className={`relative p-2 rounded-lg ${hoverBg} transition-colors ${textSecondaryColor} hover:${textColor}`}
-                aria-label="Shopping cart"
-              >
-                <ShoppingCart className="h-5 w-5" />
-                {cartItems > 0 && (
-                  <span className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center rounded-full bg-gradient-to-r from-red-600 to-red-500 text-xs text-white font-bold">
-                    {cartItems}
-                  </span>
-                )}
-              </button> */}
-
               {/* WhatsApp Chat */}
               <a
-                href="https://wa.me/923224432533  "
+                href="https://wa.me/923224432533"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-green-600 to-green-700 text-white text-sm font-semibold hover:shadow-lg hover:shadow-green-500/25 transition-all hover:scale-105 active:scale-95 group relative overflow-hidden"
@@ -288,6 +315,28 @@ export function Header() {
           }`}
         >
           <div className="mx-auto max-w-7xl px-4 py-6">
+            {/* Mobile Admin Login */}
+            <Link
+              href="/admin"
+              className={`flex items-center gap-3 p-4 rounded-xl ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'} border ${borderColor} mb-6 group`}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <div className={`h-12 w-12 rounded-full flex items-center justify-center border ${
+                theme === "dark" 
+                  ? "border-blue-500/30 bg-gradient-to-br from-gray-800 to-gray-900 text-blue-300" 
+                  : "border-blue-400/30 bg-gradient-to-br from-blue-50 to-white text-blue-600"
+              }`}>
+                <User className="h-6 w-6" />
+                <div className={`absolute -top-1 -right-1 h-3 w-3 rounded-full ${
+                  theme === "dark" ? "bg-blue-400" : "bg-blue-500"
+                } border-2 ${theme === "dark" ? "border-gray-800" : "border-white"}`} />
+              </div>
+              <div>
+                <div className={`font-semibold ${textColor}`}>Admin Dashboard</div>
+                <div className={`text-xs ${textSecondaryColor}`}>Manage your printing business</div>
+              </div>
+            </Link>
+
             {/* Mobile Theme Toggle */}
             <div className="mb-6 p-4 rounded-xl bg-gradient-to-r from-gray-800/50 to-gray-900/50 border border-gray-700/50">
               <div className="flex items-center justify-between">
@@ -324,10 +373,7 @@ export function Header() {
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.label}
-                    {/* ChevronDown and submenu logic removed */}
                   </Link>
-                  
-                  {/* Mobile Submenu removed entirely */}
                 </div>
               ))}
             </div>
